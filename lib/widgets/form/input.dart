@@ -1,4 +1,5 @@
 import 'package:developer_look/core/app_colors.dart';
+import 'package:developer_look/core/app_pop.dart';
 import 'package:flutter/material.dart';
 
 class Input extends StatelessWidget {
@@ -80,6 +81,7 @@ class Input extends StatelessWidget {
       ),
       validator: (value) {
         if (require! && (value == null || value.isEmpty)) {
+          AppPop.showError('Please enter $labelText');
           // Get.snackbar('Error', 'Please enter $labelText');
           return null;
         }

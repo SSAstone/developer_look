@@ -9,23 +9,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
 
-class ShareScreen extends StatefulWidget {
-  @override
-  State<ShareScreen> createState() => _ShareScreenState();
-}
+class ShareScreen extends StatelessWidget {
+   ShareScreen({super.key});
 
-class _ShareScreenState extends State<ShareScreen> {
-  String? departure;
-  String? arrival;
-  String? airline;
-  String? travelClass;
-  double rating = 0;
-  DateTime? travelDate;
-
-  final TextEditingController messageController = TextEditingController();
   final ShareController controller = Get.put(ShareController());
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -49,11 +38,27 @@ class _ShareScreenState extends State<ShareScreen> {
                     imagePath: null,
                   ),
                   const SizedBox(height: 16),
-                  SearchInput(items: controller.dummyList, labelText: "Departure Airport", controller: controller.myController),
+                  SearchInput(items: controller.departureList, labelText: "Departure Airport", controller: controller.departure.value, require: true),
                   const SizedBox(height: 16),
-              
+                  SearchInput(items: controller.arrivalList, labelText: "Arrival Airport", controller: controller.arrival.value, require: true),
+                  const SizedBox(height: 16),
+                  SearchInput(
+                    items: controller.airlineList,
+                    labelText: "Airline",
+                    controller: controller.airport.value,
+                    require: true,
+                  ),
+                  const SizedBox(height: 16),
+                  SearchInput(
+                    items: controller.travelClassList,
+                    labelText: "Class",
+                    controller: controller.travelClass.value,
+                    require: true,
+                  ),
+                  const SizedBox(height: 16),
+
                   TextField(
-                    controller: messageController,
+                    controller: controller.message.value,
                     maxLines: 5,
                     decoration: InputDecoration(
                       hintText: 'Write your message',
@@ -79,14 +84,14 @@ class _ShareScreenState extends State<ShareScreen> {
                       const Text("Rating", style: TextStyle(fontWeight: FontWeight.w500)),
                       const SizedBox(width: 8),
                       RatingBar.builder(
-                        initialRating: rating,
+                        initialRating: 0,
                         minRating: 1,
                         direction: Axis.horizontal,
                         itemCount: 5,
                         itemSize: 24,
                         itemPadding: const EdgeInsets.symmetric(horizontal: 1),
                         itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
-                        onRatingUpdate: (r) => setState(() => rating = r),
+                        onRatingUpdate: (r) => controller.rating.value = r,
                       ),
                     ],
                   ),
@@ -97,6 +102,7 @@ class _ShareScreenState extends State<ShareScreen> {
                     width: double.infinity,
                     child: Button(
                       onPressed: () {
+                        controller.submitShare();
                       },
                       text: "Submit",
                     ),
@@ -110,4 +116,6 @@ class _ShareScreenState extends State<ShareScreen> {
       ),
     );
   }
+
+
 }

@@ -88,19 +88,6 @@ class FeedCard extends StatelessWidget {
             ),
             const Text("See More", style: TextStyle(color: Colors.blue)),
             const SizedBox(height: 12),
-            // Wrap(
-            //   spacing: 3,
-            //   runSpacing: 3,
-            //   children:
-            //       post.images.map((image) {
-            //         return Img(
-            //           src: image,
-            //           height: 200,
-            //           width: double.infinity,
-            //           fit: BoxFit.cover,
-            //         );
-            //       }).toList(),
-            // ),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -183,9 +170,9 @@ class FeedCard extends StatelessWidget {
               shrinkWrap: true,
               padding: const EdgeInsets.all(0),
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: post.commentsList?.length,
+              itemCount: post.commentsList.length,
               itemBuilder: (context, index) {
-                final comment = post.commentsList?[index];
+                final comment = post.commentsList[index];
                 return FeedCommentCard(comment: comment);
               },
             ),

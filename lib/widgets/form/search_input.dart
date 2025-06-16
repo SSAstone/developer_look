@@ -76,7 +76,7 @@ class SearchInput extends StatelessWidget {
                 )
               : BorderSide.none,
         ),
-      ),   
+      ),      
     );
   }
 }

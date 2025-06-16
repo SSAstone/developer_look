@@ -4,7 +4,7 @@ import 'package:developer_look/widgets/common/img.dart';
 import 'package:flutter/material.dart';
 
 class FeedCommentCard extends StatelessWidget {
-  final Comments? comment;
+  final Comment? comment;
   const FeedCommentCard({super.key, required this.comment});
 
   @override

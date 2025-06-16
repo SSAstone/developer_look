@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:developer_look/helpers/instance.dart';
-import 'package:developer_look/utils/api_endpoints.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
@@ -39,11 +37,7 @@ class ImagePickerHelper {
     if (imageFile.value != null) {
       try {
         if (defaultImage.value.isNotEmpty) {
-          print('delete image---------------${defaultImage.value}');
-          final response = await Instance.post('/upload-image/delete', {
-            'file': defaultImage.value,
-          });
-          print('response-------------------: $response');
+          
         }
 
         File compressedImageFile = await compressImage(imageFile.value!);
@@ -67,7 +61,7 @@ class ImagePickerHelper {
         }
 
         var request = http.MultipartRequest(
-            'POST', Uri.parse('${ApiEndPoints.baseUrl}/upload-image'));
+            'POST', Uri.parse('/upload-image'));
         var pic = await http.MultipartFile.fromPath(
           'image',
           compressedImageFile.path,
