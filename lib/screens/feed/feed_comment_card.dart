@@ -1,5 +1,5 @@
 import 'package:developer_look/models/feed_model.dart';
-import 'package:developer_look/styles/app_colors.dart';
+import 'package:developer_look/core/app_colors.dart';
 import 'package:developer_look/widgets/common/img.dart';
 import 'package:flutter/material.dart';
 

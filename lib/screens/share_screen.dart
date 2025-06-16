@@ -1,11 +1,13 @@
 import 'package:developer_look/controllers/share_controller.dart';
+import 'package:developer_look/core/app_colors.dart';
 import 'package:developer_look/widgets/common/button.dart';
+import 'package:developer_look/widgets/form/date_input.dart';
+import 'package:developer_look/widgets/form/image_input.dart';
 import 'package:developer_look/widgets/form/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
-import 'package:intl/intl.dart';
 
 class ShareScreen extends StatefulWidget {
   @override
@@ -31,6 +33,7 @@ class _ShareScreenState extends State<ShareScreen> {
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Form(
+              key: controller.formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -41,38 +44,9 @@ class _ShareScreenState extends State<ShareScreen> {
                       IconButton(icon: Icon(Icons.close), onPressed: () => Get.back()),
                     ],
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300, style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey.shade100,
-                      // borderStyle: BorderStyle.solid,
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey.shade100, blurRadius: 3),
-                      ],
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.upload, size: 40, color: Colors.black45),
-                          SizedBox(height: 8),
-                          Text.rich(
-                            TextSpan(
-                              text: 'Drop Your Image Here Or ',
-                              children: [
-                                TextSpan(
-                                  text: 'Browse',
-                                  style: TextStyle(color: Colors.blue),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ImageInput(
+                    controller: controller.imageHelper,
+                    imagePath: null,
                   ),
                   const SizedBox(height: 16),
                   SearchInput(items: controller.dummyList, labelText: "Departure Airport", controller: controller.myController),
@@ -84,7 +58,7 @@ class _ShareScreenState extends State<ShareScreen> {
                     decoration: InputDecoration(
                       hintText: 'Write your message',
                       filled: true,
-                      fillColor: Colors.grey.shade100,
+                      fillColor: AppColors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -97,27 +71,8 @@ class _ShareScreenState extends State<ShareScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: GestureDetector(
-                          onTap: _pickDate,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade300),
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.grey.shade100,
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.calendar_today, size: 18),
-                                const SizedBox(width: 8),
-                                Text(travelDate != null
-                                    ? DateFormat('yyyy-MM-dd').format(travelDate!)
-                                    : 'Travel Date'),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                        child: DateInput(labelText: "Travel Date", controller: controller.date.value, require: true),
+                      ),                      
               
                       const SizedBox(width: 12),
               
@@ -154,19 +109,5 @@ class _ShareScreenState extends State<ShareScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _pickDate() async {
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2030),
-    );
-    if (picked != null) {
-      setState(() {
-        travelDate = picked;
-      });
-    }
   }
 }

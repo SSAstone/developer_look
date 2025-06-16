@@ -1,6 +1,5 @@
-import 'package:developer_look/routes/app_pages.dart';
-import 'package:developer_look/routes/app_routes.dart';
-import 'package:developer_look/styles/app_colors.dart';
+import 'package:developer_look/core/app_routes.dart';
+import 'package:developer_look/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +34,7 @@ class _MyAppState extends State<MyApp> {
           foregroundColor: Colors.black,
         ),
       ),
-      getPages: AppPages.pages,
+      getPages: AppRouters.pages,
       initialRoute: AppRouters.splash,
     );
   }

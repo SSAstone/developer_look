@@ -1,7 +1,7 @@
 import 'package:developer_look/controllers/feed_controller.dart';
-import 'package:developer_look/routes/app_routes.dart';
+import 'package:developer_look/core/app_routes.dart';
 import 'package:developer_look/screens/feed/feed_card.dart';
-import 'package:developer_look/styles/app_colors.dart';
+import 'package:developer_look/core/app_colors.dart';
 import 'package:developer_look/widgets/common/button.dart';
 import 'package:developer_look/widgets/common/img.dart';
 import 'package:flutter/material.dart';
