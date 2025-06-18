@@ -1,3 +1,5 @@
+import 'package:developer_look/screens/auth/login_screen.dart';
+import 'package:developer_look/screens/auth/signup_screen.dart';
 import 'package:developer_look/screens/feed/feed_screen.dart';
 import 'package:developer_look/screens/share_screen.dart';
 import 'package:developer_look/screens/splash_screen.dart';
@@ -23,5 +25,7 @@ class AppRouters {
       name: AppRouters.share,
       page: () => ShareScreen(),
     ),
+    GetPage(name: AppRouters.login, page: () => LoginScreen()),
+    GetPage(name: AppRouters.signup, page: () => SignUpScreen()),
   ];
 }

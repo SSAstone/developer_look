@@ -1,19 +1,29 @@
 import 'dart:async';
-
-import 'package:developer_look/core/app_routes.dart';
+import 'package:developer_look/screens/auth/auth_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const AuthWrapper()),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    Timer(const Duration(seconds: 2), () {
-        Get.offAllNamed(AppRouters.feed);
-    });
-
     return Scaffold(
       body: Center(
         child: ClipRRect(
@@ -24,7 +34,6 @@ class SplashScreen extends StatelessWidget {
             height: 100,
             fit: BoxFit.cover,
             alignment: Alignment.center,
-          
           ),
         ),
       ),

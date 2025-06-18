@@ -46,7 +46,7 @@ class Input extends StatelessWidget {
         constraints: style.constraints,
         hintText: placeholderText ?? (labelText != null ? 'Enter $labelText' : null ),
         contentPadding: textarea == true ? const EdgeInsets.all(10) : const EdgeInsets.symmetric(horizontal: 10),
-        labelText: labelText ?? null,
+        labelText: labelText,
         floatingLabelStyle: TextStyle(
           color: AppColors.textBlack,
           fontWeight: FontWeight.w600,
@@ -66,17 +66,22 @@ class Input extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide:BorderSide(
-                  color:  AppColors.grey,
+          borderSide: style.border != null
+              ? BorderSide(
+                  color: style.border ?? AppColors.black,
                   width: 1,
                 )
+              : BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide:  BorderSide(
-                  color: AppColors.darkColor,
-                  width: 2,
-                )
+          borderSide:
+              (style.focusBorder != null && style.focusNone)
+                  ? BorderSide(
+                      color: style.focusBorder ?? AppColors.black,
+                      width: 2,
+                    )
+                  : BorderSide.none,
         ),
       ),
       validator: (value) {

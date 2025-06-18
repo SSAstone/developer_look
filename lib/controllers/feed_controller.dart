@@ -1,7 +1,9 @@
+import 'package:developer_look/controllers/auth_controller.dart';
 import 'package:developer_look/models/feed_model.dart';
 import 'package:get/get.dart';
 
 class FeedController extends GetxController {
+  final AuthController authController = Get.put(AuthController());
   var posts = <FeedModel>[].obs;
 
   @override

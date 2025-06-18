@@ -39,8 +39,10 @@ class FeedScreen extends StatelessWidget {
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {},
+            icon: const Icon(Icons.logout, color: Colors.black),
+            onPressed: () {
+              controller.authController.logout();
+            },
           ),
         ],
       ),
