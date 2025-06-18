@@ -8,18 +8,22 @@ class AuthController extends GetxController {
   final Rx<TextEditingController> email = TextEditingController().obs;
   final Rx<TextEditingController> password = TextEditingController().obs;
   final Rx<TextEditingController> confirmPassword = TextEditingController().obs;
+  final RxBool isLoading = false.obs;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<void> login() async {
     try {
+      isLoading.value = true;
       await auth.signInWithEmailAndPassword(
         email: email.value.text.trim(),
         password: password.value.text.trim(),
       );
 
+      isLoading.value = false;
       AppPop.showSuccess('Login successful!');
       Get.offAllNamed(AppRouters.feed);
     } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
       if (e.code == 'user-not-found') {
         AppPop.showError('No user found for that email.');
       } else if (e.code == 'wrong-password') {
@@ -37,14 +41,17 @@ class AuthController extends GetxController {
     }
 
     try {
+      isLoading.value = true;
       await auth.createUserWithEmailAndPassword(
         email: email.value.text.trim(),
         password: password.value.text.trim(),
       );
 
+      isLoading.value = false;
       AppPop.showSuccess('Account created successfully!');
       Get.offAllNamed(AppRouters.login);
     } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
       if (e.code == 'weak-password') {
         AppPop.showError('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {

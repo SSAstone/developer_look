@@ -12,6 +12,8 @@ class Button extends StatelessWidget {
   final double? width;
   final double? height;
   final Icon? icon;
+  final bool? isLoading;
+
   const Button({
     super.key,
     this.onPressed,
@@ -25,12 +27,18 @@ class Button extends StatelessWidget {
     this.width,
     this.height,
     this.icon,
+    this.isLoading = false, 
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: () {
+        if (isLoading == true) return;
+        if (onPressed != null) {
+          onPressed!();
+        } 
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: color ?? const Color(0xff4a4a4a),
         padding:
@@ -43,7 +51,17 @@ class Button extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          isLoading! == true
+                ? Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ) : Text(
             text,
             style: TextStyle(
               color: textColor ?? Colors.white,
