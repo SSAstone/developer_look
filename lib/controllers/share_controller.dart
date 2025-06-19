@@ -94,14 +94,15 @@ class ShareController extends GetxController {
         "description": message.value.text,
         "likes": 1,
         "comments": 0,
-        "images": [
-          "https://img.freepik.com/premium-photo/view-tower-through-window-window-view-from-metal-window_916943-361.jpg",
-        ],
+        "images": imageHelper.imageFiles
+                    .where((file) => file != null)
+                    .map((file) => file!.path)
+                    .toList(),
         "commentsList": []
       };
       isLoading.value = true;
       final newPost = FeedModel.fromJson(body);
-      feedController.posts.add(newPost);
+      feedController.posts.add(newPost);    
       feedController.posts.refresh();
       isLoading.value = false;
       Get.back();

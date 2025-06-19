@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Img extends StatelessWidget {
@@ -43,7 +45,15 @@ class Img extends StatelessWidget {
           width: width,
           child: ClipRRect(
             borderRadius: borderRadius!,
-            child: Image.network(
+            child: src.startsWith('/') || src.startsWith('file://') ? Image.file(
+                File(src),
+                color: color,
+                fit: fit,
+                width: width,
+                height: height,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Text('Image failed to load'),
+              ) :  Image.network(
                 src,
                 color: color,
                 fit: fit ?? BoxFit.cover,
