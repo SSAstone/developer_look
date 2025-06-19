@@ -53,13 +53,15 @@ class LoginScreen extends StatelessWidget {
                   require: true,
                 ),
                 const SizedBox(height: 28),
-                Button(
-                  text: 'Login',
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      await controller.login();
-                    }
-                  },
+                Obx(() => Button(
+                    text: 'Login',
+                    isLoading: controller.isLoading.value,
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await controller.login();
+                      }
+                    },
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

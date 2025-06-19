@@ -16,7 +16,6 @@ class ShareController extends GetxController {
   final List<String> arrivalList = [];
   final List<String> airlineList = [];
   final List<String> travelClassList = ['Economy', 'Business', 'First Class'];
-  final Rx<TextEditingController> airport = TextEditingController().obs;
   final Rx<TextEditingController> arrival = TextEditingController().obs;
   final Rx<TextEditingController> airline = TextEditingController().obs;
   final Rx<TextEditingController> travelClass = TextEditingController().obs;
@@ -29,6 +28,7 @@ class ShareController extends GetxController {
   final Rx<TextEditingController> departure = TextEditingController().obs;
   final Rx<TextEditingController> date = TextEditingController().obs;
   final ImagePickerHelper imageHelper = ImagePickerHelper();
+  final RxBool isLoading = false.obs; 
 
   @override
   void onInit() {
@@ -99,11 +99,11 @@ class ShareController extends GetxController {
         ],
         "commentsList": []
       };
-
+      isLoading.value = true;
       final newPost = FeedModel.fromJson(body);
       feedController.posts.add(newPost);
       feedController.posts.refresh();
-
+      isLoading.value = false;
       Get.back();
 
     } else {

@@ -33,15 +33,25 @@ class ImageInput extends StatelessWidget {
                   radius: 5,
                   backgroundColor: AppColors.white,
                   child: controller.imageFile.value != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(
-                            controller.imageFile.value!,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        )
+                      ? SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: controller.imageFiles.map((e) => Container(
+                            padding: const EdgeInsets.all(4),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(
+                                e!,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )).toList(),
+                        ),
+                      )
                       : controller.defaultImage.value.isNotEmpty
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(12),
@@ -101,16 +111,6 @@ class ImageInput extends StatelessWidget {
                       child: Text('Pick Image from Camera'),
                     ),
                   ];
-
-                  if (controller.imageFile.value != null ||
-                      (imagePath != null && imagePath!.isNotEmpty)) {
-                    menuItems.add(
-                      const PopupMenuItem<String>(
-                        value: 'remove',
-                        child: Text('Remove Image'),
-                      ),
-                    );
-                  }
 
                   return menuItems;
                 },

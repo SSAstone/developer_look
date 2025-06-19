@@ -6,15 +6,14 @@ import 'package:developer_look/widgets/form/image_input.dart';
 import 'package:developer_look/widgets/form/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class ShareScreen extends StatelessWidget {
-   ShareScreen({super.key});
+  ShareScreen({super.key});
 
   final ShareController controller = Get.put(ShareController());
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -29,8 +28,17 @@ class ShareScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Share", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                      IconButton(icon: Icon(Icons.close), onPressed: () => Get.back()),
+                      Text(
+                        "Share",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        onPressed: () => Get.back(),
+                      ),
                     ],
                   ),
                   ImageInput(
@@ -38,14 +46,24 @@ class ShareScreen extends StatelessWidget {
                     imagePath: null,
                   ),
                   const SizedBox(height: 16),
-                  SearchInput(items: controller.departureList, labelText: "Departure Airport", controller: controller.departure.value, require: true),
+                  SearchInput(
+                    items: controller.departureList,
+                    labelText: "Departure Airport",
+                    controller: controller.departure.value,
+                    require: true,
+                  ),
                   const SizedBox(height: 16),
-                  SearchInput(items: controller.arrivalList, labelText: "Arrival Airport", controller: controller.arrival.value, require: true),
+                  SearchInput(
+                    items: controller.arrivalList,
+                    labelText: "Arrival Airport",
+                    controller: controller.arrival.value,
+                    require: true,
+                  ),
                   const SizedBox(height: 16),
                   SearchInput(
                     items: controller.airlineList,
                     labelText: "Airline",
-                    controller: controller.airport.value,
+                    controller: controller.airline.value,
                     require: true,
                   ),
                   const SizedBox(height: 16),
@@ -65,23 +83,40 @@ class ShareScreen extends StatelessWidget {
                       filled: true,
                       fillColor: AppColors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: AppColors.darkColor,
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: AppColors.black,
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
-              
+
                   const SizedBox(height: 16),
-              
+
                   Row(
                     children: [
                       Expanded(
-                        child: DateInput(labelText: "Travel Date", controller: controller.date.value, require: true),
-                      ),                      
-              
+                        child: DateInput(
+                          labelText: "Travel Date",
+                          controller: controller.date.value,
+                          require: true,
+                        ),
+                      ),
+
                       const SizedBox(width: 12),
-              
-                      const Text("Rating", style: TextStyle(fontWeight: FontWeight.w500)),
+
+                      const Text(
+                        "Rating",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       const SizedBox(width: 8),
                       RatingBar.builder(
                         initialRating: 0,
@@ -90,24 +125,27 @@ class ShareScreen extends StatelessWidget {
                         itemCount: 5,
                         itemSize: 24,
                         itemPadding: const EdgeInsets.symmetric(horizontal: 1),
-                        itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
+                        itemBuilder:
+                            (context, _) =>
+                                const Icon(Icons.star, color: Colors.amber),
                         onRatingUpdate: (r) => controller.rating.value = r,
                       ),
                     ],
                   ),
-              
+
                   const SizedBox(height: 24),
-              
-                  SizedBox(
-                    width: double.infinity,
-                    child: Button(
+
+                  Obx(
+                    () => Button(
+                      isLoading: controller.isLoading.value,
                       onPressed: () {
                         controller.submitShare();
                       },
                       text: "Submit",
                     ),
                   ),
-                   const SizedBox(height: 24),
+
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -116,6 +154,4 @@ class ShareScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }

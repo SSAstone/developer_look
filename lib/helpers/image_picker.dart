@@ -12,6 +12,7 @@ import 'package:http_parser/http_parser.dart';
 class ImagePickerHelper {
   final picker = ImagePicker();
   final Rx<File?> imageFile = Rx<File?>(null);
+  final RxList<File?> imageFiles = RxList<File?>([]);
 
   RxString defaultImage = ''.obs;
 
@@ -19,6 +20,7 @@ class ImagePickerHelper {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       imageFile.value = File(pickedFile.path);
+      imageFiles.add(File(pickedFile.path));
     } else {
       print('No image selected.');
     }
@@ -28,6 +30,7 @@ class ImagePickerHelper {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       imageFile.value = File(pickedFile.path);
+      imageFiles.add(File(pickedFile.path));
     } else {
       print('No image selected.');
     }

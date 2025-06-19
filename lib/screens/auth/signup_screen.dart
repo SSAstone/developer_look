@@ -59,13 +59,15 @@ class SignUpScreen extends StatelessWidget {
                   require: true,
                 ),
                 const SizedBox(height: 28),
-                Button(
-                  text: 'Sign Up',
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      await controller.signUp();
-                    }
-                  },
+                Obx(() => Button(
+                    text: 'Sign Up',
+                    isLoading: controller.isLoading.value,
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await controller.signUp();
+                      }
+                    },
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
